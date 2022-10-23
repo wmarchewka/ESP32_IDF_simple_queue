@@ -1,14 +1,12 @@
 /* BSD Socket API Example
-*/
+ */
 #include "new_udp_server.h"
 
 /* Handle for our HTTPD instance */
-static httpd_handle_t server_handle;
+// static httpd_handle_t server_handle;
 
 /* Waiting for certain WiFi events before continuing */
-static EventGroupHandle_t s_wifi_event_group;
-
-
+// static EventGroupHandle_t s_wifi_event_group;
 
 static void udp_server_task(void *pvParameters)
 {
@@ -20,7 +18,6 @@ static void udp_server_task(void *pvParameters)
 
     while (1)
     {
-
         struct sockaddr_in *dest_addr_ip4 = (struct sockaddr_in *)&dest_addr;
         dest_addr_ip4->sin_addr.s_addr = htonl(INADDR_ANY);
         dest_addr_ip4->sin_family = AF_INET;
