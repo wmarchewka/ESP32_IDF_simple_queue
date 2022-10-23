@@ -1,5 +1,5 @@
-#ifndef INC_UDPSERVER_H
-#define INC_UDPSERVER_H
+#ifndef INC_UDPNEWSERVER_H
+#define INC_UDPNEWSERVER_H
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
@@ -30,8 +30,6 @@
 // Time to wait between taking voltage measurements
 static const TickType_t udp_period = pdMS_TO_TICKS(1000);
 
-static const char *TAG = "udp_server";
-
 /* Flags used in event group */
 #define WIFI_CONNECTED_BIT BIT0
 
@@ -40,6 +38,6 @@ typedef struct udp_task_parameters
     xQueueHandle xUdpQueue;
 } udp_task_parameters;
 
-static void udp_server_task(void *pvParameters);
+void udp_server_task(void *pvParameters);
 
 #endif

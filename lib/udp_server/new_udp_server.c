@@ -8,7 +8,9 @@
 /* Waiting for certain WiFi events before continuing */
 // static EventGroupHandle_t s_wifi_event_group;
 
-static void udp_server_task(void *pvParameters)
+static const char *TAG = "udp_server";
+
+void udp_server_task(void *pvParameters)
 {
     char rx_buffer[128];
     char addr_str[128];
