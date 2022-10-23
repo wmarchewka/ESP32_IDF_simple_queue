@@ -2,5 +2,6 @@
     "files.associations": {
         "udp.h": "c",
         "new_udp_server.h": "c"
-    }
+    },
+    "cmake.configureOnOpen": true
 }
