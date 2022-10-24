@@ -27,6 +27,9 @@
 #define PORT 4444
 #define CONFIG_EXAMPLE_IPV4
 
+/* Handle for our HTTPD instance */
+static httpd_handle_t server_handle;
+
 // Time to wait between taking voltage measurements
 static const TickType_t udp_period = pdMS_TO_TICKS(1000);
 
@@ -38,6 +41,7 @@ typedef struct udp_task_parameters
     xQueueHandle xUdpQueue;
 } udp_task_parameters;
 
+void wait_for_wifi_ready();
 void udp_server_task(void *pvParameters);
 
 #endif

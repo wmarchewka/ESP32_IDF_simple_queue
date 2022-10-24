@@ -44,6 +44,6 @@ void app_main()
         // xTaskCreate(http_file_server_task, "http_file_server_task", 1024 * 4, &http_params, 19, NULL);
         // xTaskCreate(volt_adc_task, "volt_adc_task", 2048, xPowerQueue, 10, NULL);
         //xTaskCreate(udp_task, "udp task", 1024 * 8, &udp_parameters, 8, NULL);
-        xTaskCreate(udp_server_task, "udp_server", 4096, (void *)AF_INET, 5, NULL);
+        xTaskCreate(udp_server_task, "udp_server", 4096, &udp_parameters, 5, NULL);
     }
 }
