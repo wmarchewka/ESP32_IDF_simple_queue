@@ -7,5 +7,5 @@
  *
  */
 
-#define ESP_WIFI_SSID "WALTERMARCHEWKA"
-#define ESP_WIFI_PASS "Alignment67581"
+#define ESP_WIFI_SSID "Waltersiphone"
+#define ESP_WIFI_PASS "Aipotsid2407"

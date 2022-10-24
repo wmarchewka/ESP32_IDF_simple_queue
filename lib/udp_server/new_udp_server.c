@@ -11,7 +11,6 @@
 static const char *TAG = "udp_server";
 static EventGroupHandle_t s_wifi_event_group;
 
-
 void udp_server_task(void *pvParameters)
 {
     char rx_buffer[128];
