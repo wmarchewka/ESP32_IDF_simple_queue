@@ -71,7 +71,7 @@ void udp_server_task(void *pvParameters)
 
         while (1)
         {
-            ESP_LOGI(TAG, "Waiting for data");
+            ESP_LOGI(TAG, "Waiting for UDP data");
             int len = recvfrom(sock, rx_buffer, sizeof(rx_buffer) - 1, 0, (struct sockaddr *)&source_addr, &socklen);
 
             // Error occurred during receiving
@@ -86,12 +86,17 @@ void udp_server_task(void *pvParameters)
                 // Get the sender's ip address as string
                 inet_ntoa_r(((struct sockaddr_in *)&source_addr)->sin_addr, addr_str, sizeof(addr_str) - 1);
                 rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string...
-                ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
-                ESP_LOGI(TAG, "%s", rx_buffer);
-                    ESP_LOGI(TAG, "Sending to Queue");
-                    message.value = 1;
-                    message.timeStamp = xTaskGetTickCount();
-                    xQueueOverwrite(xUdpQueue, &message);
+                                    // ESP_LOGI(TAG, "Received %d bytes from %s:", len, addr_str);
+                                    // ESP_LOGI(TAG, "%s", rx_buffer);timeoutDelay
+                ESP_LOGI(TAG, "Sending to UdpQueue");
+                foo[strlen(foo) - 1] = 0;
+
+                strcpy(message.addr_str, addr_str);
+                strcpy(message.rx_buffer, rx_buffer);
+                // message.addr_str = addr_str;
+                // message.rx_buffer = rx_buffer;
+                message.timeStamp = xTaskGetTickCount();
+                xQueueOverwrite(xUdpQueue, &message);
                 int err = sendto(sock, rx_buffer, len, 0, (struct sockaddr *)&source_addr, sizeof(source_addr));
                 if (err < 0)
                 {

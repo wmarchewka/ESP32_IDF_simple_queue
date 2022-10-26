@@ -1,4 +1,5 @@
 /*
+nc -u 192.168.1.208 4444
  */
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
@@ -18,13 +19,14 @@ void app_main()
     // obtain handle to the queue we are going to use
     QueueHandle_t xPowerQueue = xQueueCreate(1, sizeof(power_msg));
     QueueHandle_t xUdpQueue = xQueueCreate(1, sizeof(udp_msg));
+    
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     /// @brief create task parameters to send to the task in this case just a queue
     http_file_server_task_parameters http_params = {
         .xPowerQueue = xPowerQueue,
+        .xUdpQueue = xUdpQueue,
     };
-
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     udp_task_parameters udp_parameters = {
         .xUdpQueue = xUdpQueue,
@@ -41,9 +43,8 @@ void app_main()
        
         // xTaskCreate(softap_start_task, "softap_start_task", 1024 * 4, NULL, 20, NULL);
         xTaskCreate(station_start_task, "station_start_task", 1024 * 4, NULL, 20, NULL);
-        // xTaskCreate(http_file_server_task, "http_file_server_task", 1024 * 4, &http_params, 19, NULL);
-        // xTaskCreate(volt_adc_task, "volt_adc_task", 2048, xPowerQueue, 10, NULL);
-        //xTaskCreate(udp_task, "udp task", 1024 * 8, &udp_parameters, 8, NULL);
+        xTaskCreate(volt_adc_task, "volt_adc_task", 2048, xPowerQueue, 10, NULL);
         xTaskCreate(udp_server_task, "udp_server", 4096, &udp_parameters, 5, NULL);
-    }
+    }   xTaskCreate(http_file_server_task, "http_file_server_task", 1024 * 4, &http_params, 19, NULL);
+
 }
