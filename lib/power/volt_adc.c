@@ -20,10 +20,10 @@ void volt_adc_task(void *pvParameter)
   // Continuously read voltage and publish to queue
   while (true)
   {
-    ESP_LOGI(TAG, "Sending data to Power Queue");
-    message.voltage = 1;
-    message.timeStamp = xTaskGetTickCount();
-    xQueueOverwrite(xPowerQueue, &message);
+    // ESP_LOGI(TAG, "Sending data to Power Queue");
+    // message.voltage = 1;
+    // message.timeStamp = xTaskGetTickCount();
+    // xQueueOverwrite(xPowerQueue, &message);
     vTaskDelay(voltage_period);
   }
 }

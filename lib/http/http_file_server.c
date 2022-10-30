@@ -26,14 +26,24 @@ void http_file_server_task(void *pvParameters)
   while (true)
     
   {
-    ESP_LOGI(TAG, "Waiting for data in Queues....");
+    // ESP_LOGI(TAG, "Waiting for data in Queues....");
     
-    // ESP_ERROR_CHECK(send_power_update(xPowerQueue));
-    if (pdTRUE == xQueuePeek(xPowerQueue, &pwrMessage, timeoutDelay))
-    {
-      ESP_LOGI(TAG, "Received %lf from PowerQueu at %i", pwrMessage.voltage, pwrMessage.timeStamp);
-    }
-    if (pdTRUE == xQueuePeek(xUdpQueue, &udpMessage, timeoutDelay))
+    // if (pdTRUE == xQueuePeek(xPowerQueue, &pwrMessage, timeoutDelay))
+    // {
+    //   ESP_LOGI(TAG, "Received %lf from PowerQueu at %i", pwrMessage.voltage, pwrMessage.timeStamp);
+    // }
+
+    // if (xQueueReceive(xPowerQueue, &(pwrMessage), (TickType_t)10))
+    // {
+    //   ESP_LOGI(TAG, "Received %lf from PowerQueu at %i", pwrMessage.voltage, pwrMessage.timeStamp);
+    // }
+
+    // if (pdTRUE == xQueuePeek(xUdpQueue, &udpMessage, timeoutDelay))
+    // {
+    //   ESP_LOGI(TAG, "Received %s from %s at %i", udpMessage.rx_buffer, udpMessage.addr_str, udpMessage.timeStamp);
+    // }
+
+    if (xQueueReceive(xUdpQueue, &(udpMessage), portMAX_DELAY))
     {
       ESP_LOGI(TAG, "Received %s from %s at %i", udpMessage.rx_buffer, udpMessage.addr_str, udpMessage.timeStamp);
     }
